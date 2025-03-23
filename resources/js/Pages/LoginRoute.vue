@@ -117,11 +117,14 @@ import axios from "axios";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000"; // Laravel API
 axios.defaults.withCredentials = true; // Important for cookies!
+axios.defaults.withXSRFToken = true;
 
 async function login(email, password) {
     try {
-        const response = await axios.post("/login", { email, password });
-        console.log("Login successful:", response.data);
+        axios.get('/sanctum/csrf-cookie').then(response => {
+            const response = await axios.post("/login", { email, password });
+            console.log("Login successful:", response.data);
+        });
     } catch (error) {
         console.error("Login failed:", error.response.data);
     }
