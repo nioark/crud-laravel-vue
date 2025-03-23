@@ -2,7 +2,9 @@ import "./bootstrap";
 import router from "./router";
 import { createApp } from "vue";
 
-import '../css/app.css';
+import "../css/app.css";
 import App from "./App.vue";
 
-createApp(App).use(router).mount("#app");
+import { VueQueryPlugin } from "@tanstack/vue-query";
+
+createApp(App).use(router, VueQueryPlugin).mount("#app");

@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import axios from "axios";
 
 const routes = [
     {
@@ -54,19 +55,34 @@ const routes = [
     },
 ];
 
-export default createRouter({
+async function isAuthenticated() {
+    try {
+        const response = await axios.get("http://127.0.0.1:8000/api/user", {
+            withCredentials: true,
+        });
+        return response.data; // If user is logged in, return user data
+    } catch (error) {
+        return null; // If not logged in, return null
+    }
+}
+
+const router = createRouter({
     history: createWebHistory(),
     routes,
 });
-/* 
-.beforeEach(async (to, from) => {
-    if (
-      // make sure the user is authenticated
-      !isAuthenticated &&
-      // ❗️ Avoid an infinite redirect
-      to.name !== 'Login'
-    ) {
-      // redirect the user to the login page
-      return { name: 'Login' }
+
+router.beforeEach(async (to, from, next) => {
+    const user = await isAuthenticated();
+
+    if (to.meta.requiresAuth && !user) {
+        next("/login"); // Redirect to login if not authenticated
+    } else if (to.meta.requiresAdmin && user?.role !== "admin") {
+        next("/dashboard"); // Redirect non-admin users to dashboard
+    } else if (to.meta.guest && user) {
+        next("/dashboard"); // Prevent logged-in users from accessing login
+    } else {
+        next(); // Continue navigation
     }
-}); */
+});
+
+export default router;
