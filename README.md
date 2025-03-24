@@ -34,15 +34,57 @@ O projeto possui funcionalidades como:
 -   [DaisyUI](https://daisyui.com/)
 -   [Rxjs](https://rxjs.dev/)
 
-## Como utilizar
+## 🚀 Como utilizar
 
-Para utilizar esse projeto, basta clonar e seguir os seguintes passos:
+Siga os passos abaixo para configurar e executar o projeto corretamente.
 
--   Instale as bibliotecas do php com `composer update --no-scripts`
--   Instale as bibliotecas do nodejs com `npm install`
--   Configurar conexão database postgres
--   Rodar os arquivos de migração `php artisan migrate`
--   Abrir um console e exercutar `php artisan serve`
--   Abrir outro console e executar o vite `npm run dev`
--   Acessar o [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)
--   Logar com usuário padrão admin@admin.com, senha admin.
+## 📌 Requisitos
+
+-   PHP e Composer instalados
+-   Node.js e npm instalados
+-   Banco de dados PostgreSQL configurado
+
+## 🔧 Passos para configuração
+
+1. **Instalar as dependências do PHP:**
+
+    ```sh
+    composer update --no-scripts
+    ```
+
+2. **Instalar as dependências do Node.js:**
+
+    ```sh
+    npm install
+    ```
+
+3. **Configurar a conexão com o banco de dados PostgreSQL**
+
+    - Edite o arquivo `.env` e ajuste as configurações do banco conforme necessário.
+
+4. **Executar as migrações do banco:**
+
+    ```sh
+    php artisan migrate
+    ```
+
+5. **Iniciar o servidor Laravel:**
+
+    ```sh
+    php artisan serve
+    ```
+
+6. **Iniciar o Vite para recarregamento automático:**
+
+    ```sh
+    npm run dev
+    ```
+
+7. **Acessar a aplicação:**  
+   Abra [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login) no navegador.
+
+8. **Credenciais padrão para login:**
+    - **Usuário:** `admin@admin.com`
+    - **Senha:** `admin`
+
+---
