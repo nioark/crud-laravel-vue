@@ -7,60 +7,42 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# Projeto Crud vue.js + laravel
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Esse projeto foi desenvolvido com a finalidade de aprendizagem e demonstrar um aplicativo SPA com laravel monolítico.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resoureces/media/Captura-de-tela-login.png?raw=true)
 
-## Learning Laravel
+![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resoureces/media/Captura-de-tela-crud.png?raw=true)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resoureces/media/Captura-de-tela-info.png?raw=true)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Funcionalidades
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+O projeto possui funcionalidades como:
 
-## Laravel Sponsors
+-   Sistema de autenticação;
+-   Adição, remoção e edição de cadastros;
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Frameworks
 
-### Premium Partners
+-   [Laravel](https://laravel.com/)
+-   [Vue.js](https://vuejs.org/)
+-   [TailwindCSS](https://tailwindcss.com/)
+-   [DaisyUI](https://daisyui.com/)
+-   [Rxjs](https://rxjs.dev/)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Como utilizar
 
-## Contributing
+Para utilizar esse projeto, basta clonar e seguir os seguintes passos:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   Instale as bibliotecas do php com `composer update --no-scripts`
+-   Instale as bibliotecas do nodejs com `npm install`
+-   Configurar conexão database postgres
+-   Rodar os arquivos de migração `php artisan migrate`
+-   Abrir um console e exercutar `php artisan serve`
+-   Abrir outro console e executar o vite `npm run dev`
+-   Acessar o [http://127.0.0.1:8000/login](http://127.0.0.1:8000/login)
+-   Logar com usuário padrão admin@admin.com, senha admin.
