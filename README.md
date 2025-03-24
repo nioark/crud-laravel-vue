@@ -13,6 +13,8 @@ Esse projeto foi desenvolvido com a finalidade de aprendizagem e demonstrar um a
 
 ![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resources/media/Captura-de-tela-login.png?raw=true)
 
+![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resources/media/Captura-de-tela-acesso-rapido.png?raw=true)
+
 ![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resources/media/Captura-de-tela-crud.png?raw=true)
 
 ![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resources/media/Captura-de-tela-info.png?raw=true)

@@ -246,6 +246,9 @@ import IdIcon from "virtual:icons/hugeicons/identification";
 import EmailIcon from "virtual:icons/hugeicons/mail-at-sign-01";
 import PhoneIcon from "virtual:icons/hugeicons/call";
 
+import { debounceTime, distinctUntilChanged } from "rxjs/operators";
+import { Subject } from "rxjs";
+
 const cadastros = ref<CadastroForm[]>([]);
 const currentPage = ref(1);
 const lastPage = ref(1);
@@ -255,9 +258,14 @@ const total = ref(0);
 
 const searchTerm = ref("");
 
-watch(searchTerm, () => {
-    CadastroService.setSearchTerm(searchTerm.value);
-});
+const searchTerm$ = new Subject<string>();
+searchTerm$
+    .pipe(debounceTime(200), distinctUntilChanged())
+    .subscribe((term) => {
+        CadastroService.setSearchTerm(term);
+    });
+
+watch(searchTerm, (term) => searchTerm$.next(term));
 
 function gotoPage(page: number) {
     CadastroService.setPage(page);
