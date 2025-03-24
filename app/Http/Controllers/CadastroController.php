@@ -21,7 +21,7 @@ class CadastroController extends Controller
             $query->where('nome', 'ILIKE', "%{$searchTerm}%") 
                   ->orWhere('email', 'ILIKE', "%{$searchTerm}%")
                   ->orWhere('cpf_cnpj', 'ILIKE', "%{$searchTerm}%")
-                  ->orWhere('telefone', 'ILIKE', "%{$searchTerm}%");
+                  ->orWhere('telefone', 'ILIKE', "%{$searchTerm}%")->orderBy('id', 'DESC');
         }
 
 
