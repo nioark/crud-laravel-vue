@@ -74,9 +74,9 @@ async function isAuthenticated() {
         const response = await axios.get("http://127.0.0.1:8000/api/user", {
             withCredentials: true,
         });
+
         return response.data; // If user is logged in, return user data
     } catch (error) {
-        console.log(error);
         return null; // If not logged in, return null
     }
 }

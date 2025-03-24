@@ -15,7 +15,10 @@
             </div>
             <div class="w-1/2 h-full flex justify-center items-center flex-col">
                 <!-- bg-base-200 border border-base-300 rounded-box -->
-                <div class="flex flex-col h-full justify-center p-8">
+                <form
+                    @submit.prevent="login(email, password)"
+                    class="flex flex-col h-full justify-center p-8"
+                >
                     <h2 class="text-3xl font-bold">Bem vindo!</h2>
                     <p class="text-gray-400">Faça login para continuar.</p>
 
@@ -85,26 +88,21 @@
                                 type="password"
                                 required
                                 placeholder="Password"
-                                minlength="4"
-                                title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                             />
                             <!--                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
  -->
                         </label>
-                        <p class="validator-hint hidden">
+                        <!--                         <p class="validator-hint hidden">
                             Must be more than 8 characters, including
                             <br />At least one number <br />At least one
                             lowercase letter <br />At least one uppercase letter
-                        </p>
+                        </p> -->
 
-                        <button
-                            @click="login(email, password)"
-                            class="btn rounded-lg btn-neutral mt-4"
-                        >
+                        <button class="btn rounded-lg btn-neutral mt-4">
                             Login
                         </button>
                     </fieldset>
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -116,32 +114,28 @@ import router from "../router";
 import { toast } from "vue-sonner";
 
 async function login(email, password) {
-    try {
-        await toast.promise(
-            async () => {
+    await toast.promise(
+        async () => {
+            try {
                 await axios.get("/sanctum/csrf-cookie");
 
-                const loginResponse = await axios.post("/api/login", {
+                const response = await axios.post("/api/login", {
                     email,
                     password,
                 });
 
-                console.log("Login successful:", loginResponse.data); // Handle the successful login
-
-                if (loginResponse.status == 401) {
+                router.replace("/admin");
+            } catch (error) {
+                if (error.status == 401 || error.status == 422) {
                     throw new Error("Email ou senha incorretos.");
                 }
-                router.push("/admin");
-            },
-            {
-                loading: "Logando...",
-                success: "Login realizado com sucesso!",
-                error: (err) => err.message || "Ocorreu um erro inesperado.",
             }
-        );
-        // Navigate to admin route on successful login
-    } catch (error) {
-        console.error("Login failed:", error);
-    }
+        },
+        {
+            loading: "Logando...",
+            success: "Login realizado com sucesso!",
+            error: (err) => err.message || "Ocorreu um erro inesperado.",
+        }
+    );
 }
 </script>
