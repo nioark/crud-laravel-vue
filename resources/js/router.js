@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
 import axios from "axios";
 
+axios.defaults.baseURL = "http://127.0.0.1:8000";
+axios.defaults.withCredentials = true;
+axios.defaults.withXSRFToken = true;
+axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest"; // Set the proper header
+
 const routes = [
     {
         path: "/",
@@ -13,6 +18,9 @@ const routes = [
     {
         path: "/login",
         component: () => import("./Pages/LoginRoute.vue"),
+        meta: {
+            guest: true,
+        },
     },
     {
         path: "/admin",
@@ -26,7 +34,8 @@ const routes = [
             {
                 path: "pessoas",
                 name: "admin-pessoas",
-                component: () => import("./Pages/Admin/Routes/Pessoas.vue"),
+                component: () =>
+                    import("./Pages/Admin/Routes/Pessoas/Pessoas.vue"),
                 meta: {
                     breadCrumb: {
                         to: "/admin/pessoas",
@@ -47,6 +56,7 @@ const routes = [
             },
         ],
         meta: {
+            requiresAuth: true,
             breadCrumb: {
                 to: "/admin",
                 text: "Home",
@@ -62,6 +72,7 @@ async function isAuthenticated() {
         });
         return response.data; // If user is logged in, return user data
     } catch (error) {
+        console.log(error);
         return null; // If not logged in, return null
     }
 }
@@ -74,12 +85,14 @@ const router = createRouter({
 router.beforeEach(async (to, from, next) => {
     const user = await isAuthenticated();
 
+    console.log("User:", user);
+
     if (to.meta.requiresAuth && !user) {
         next("/login"); // Redirect to login if not authenticated
-    } else if (to.meta.requiresAdmin && user?.role !== "admin") {
-        next("/dashboard"); // Redirect non-admin users to dashboard
+        /*     } else if (to.meta.requiresAdmin && user?.role !== "admin") {
+        next("/dashboard"); // Redirect non-admin users to dashboard */
     } else if (to.meta.guest && user) {
-        next("/dashboard"); // Prevent logged-in users from accessing login
+        next("/admin"); // Prevent logged-in users from accessing login
     } else {
         next(); // Continue navigation
     }

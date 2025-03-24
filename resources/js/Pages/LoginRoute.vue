@@ -46,7 +46,6 @@
                                 </g>
                             </svg>
                             <input
-                                value="teste@gmail.com"
                                 v-model="email"
                                 type="email"
                                 placeholder="exemplo@dominio.com"
@@ -82,12 +81,11 @@
                                 </g>
                             </svg>
                             <input
-                                value="admin1234"
                                 v-model="password"
                                 type="password"
                                 required
                                 placeholder="Password"
-                                minlength="8"
+                                minlength="4"
                                 title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
                             />
                             <!--                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
@@ -115,18 +113,21 @@
 <script setup>
 import axios from "axios";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000"; // Laravel API
-axios.defaults.withCredentials = true; // Important for cookies!
-axios.defaults.withXSRFToken = true;
-
 async function login(email, password) {
     try {
-        axios.get('/sanctum/csrf-cookie').then(response => {
-            const response = await axios.post("/login", { email, password });
-            console.log("Login successful:", response.data);
+        const csrfResponse = await axios.get("/sanctum/csrf-cookie");
+        console.log(csrfResponse); // You can check the response for debugging
+
+        // Now make the login request
+        const loginResponse = await axios.post("/api/login", {
+            email,
+            password,
         });
+        console.log("Login successful:", loginResponse.data); // Handle the successful login
+        // Navigate to admin route on successful login
+        router.push("/admin");
     } catch (error) {
-        console.error("Login failed:", error.response.data);
+        console.error("Login failed:", error);
     }
 }
 </script>

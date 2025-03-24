@@ -7,4 +7,6 @@ import App from "./App.vue";
 
 import { VueQueryPlugin } from "@tanstack/vue-query";
 
-createApp(App).use(router, VueQueryPlugin).mount("#app");
+import VMask from "@ssibrahimbas/v-mask";
+
+createApp(App).use(router).use(VueQueryPlugin).use(VMask).mount("#app");
