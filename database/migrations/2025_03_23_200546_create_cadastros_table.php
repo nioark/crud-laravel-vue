@@ -37,10 +37,10 @@ return new class extends Migration
             
             if ($tipo === 'cpf') {
                 $nome = $faker->randomElement($nomes) . ' ' . $faker->randomElement($sobrenomes);
-                $cpf_cnpj = $faker->cpf(false);
+                $cpf_cnpj = $faker->cpf(true);
             } else {
                 $nome = $faker->randomElement($empresas);
-                $cpf_cnpj = $faker->cnpj(false);
+                $cpf_cnpj = $faker->cnpj(true);
             }
             
             $dados[] = [
