@@ -102,7 +102,10 @@
             </div>
         </div>
         <div class="divider"></div>
-        <div class="stats shadow">
+        <div
+            class="stats shadow"
+            v-tippy="'⚠️ Não implementado apenas visual!!'"
+        >
             <div class="stat">
                 <div class="stat-figure text-secondary">
                     <svg
