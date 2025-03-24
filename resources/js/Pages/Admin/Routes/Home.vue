@@ -49,6 +49,7 @@
             </router-link>
 
             <div
+                v-tippy="'⚠️ Não implementado apenas visual!!'"
                 class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg h-32"
             >
                 <span class="rounded-lg bg-secondary p-3">
@@ -66,6 +67,7 @@
             </div>
 
             <div
+                v-tippy="'⚠️ Não implementado apenas visual!!'"
                 class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg h-32"
             >
                 <span class="rounded-lg bg-secondary p-3">
@@ -82,6 +84,7 @@
             </div>
 
             <div
+                v-tippy="'⚠️ Não implementado apenas visual!!'"
                 class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg h-32"
             >
                 <span class="rounded-lg bg-secondary p-3">
@@ -192,4 +195,5 @@ import CadastrosIcon from "virtual:icons/hugeicons/profile-02";
 import RegistrosIcon from "virtual:icons/hugeicons/apple-reminder";
 import ColaboradoresIcon from "virtual:icons/hugeicons/shield-user";
 import ConfiguracoesIcon from "virtual:icons/hugeicons/settings-01";
+import { directive as VTippy } from "vue-tippy";
 </script>

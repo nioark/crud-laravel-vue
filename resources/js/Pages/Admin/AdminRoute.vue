@@ -26,6 +26,13 @@
                             Registros
                         </router-link>
                     </li>
+                    <li>
+                        <router-link to="/admin/usuarios">
+                            <UsersIcon />
+
+                            Usuários
+                        </router-link>
+                    </li>
                 </ul>
                 <div class="mt-auto select-none">
                     <div class="flex items-center gap-2 p-4 text-sm">
@@ -52,4 +59,6 @@ import PersonIcon from "virtual:icons/hugeicons/user-multiple-02";
 import RegistroIcon from "virtual:icons/hugeicons/align-box-top-right";
 import CogIcon from "virtual:icons/hugeicons/settings-01";
 import LogoIcon from "virtual:icons/hugeicons/alpha-square";
+import UsersIcon from "virtual:icons/hugeicons/user-shield-01";
+import { directive as VTippy } from "vue-tippy";
 </script>

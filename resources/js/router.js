@@ -14,10 +14,6 @@ const routes = [
         component: () => import("./Pages/HomeRoute.vue"),
     },
     {
-        path: "/test",
-        component: () => import("./Pages/TestRoute.vue"),
-    },
-    {
         path: "/login",
         component: () => import("./Pages/LoginRoute.vue"),
         meta: {
@@ -54,6 +50,17 @@ const routes = [
                     breadCrumb: {
                         to: "/admin/registros",
                         text: "Registros",
+                    },
+                },
+            },
+            {
+                path: "usuarios",
+                name: "admin-usuarios",
+                component: () => import("./Pages/Admin/Routes/Usuarios.vue"),
+                meta: {
+                    breadCrumb: {
+                        to: "/admin/usuarios",
+                        text: "Usuarios",
                     },
                 },
             },
