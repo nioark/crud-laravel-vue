@@ -74,7 +74,7 @@ Siga os passos abaixo para configurar e executar o projeto corretamente.
     php artisan serve
     ```
 
-6. **Iniciar o Vite para recarregamento automático:**
+6. **Iniciar o Vite:**
 
     ```sh
     npm run dev
