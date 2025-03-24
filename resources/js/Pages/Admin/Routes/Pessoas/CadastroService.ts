@@ -34,6 +34,7 @@ export class CadastroService {
     currentPageSubject = new Subject<number>();
 
     currentPage = 1;
+    searchTerm = "";
 
     async createCadastro(form: CadastroForm) {
         const response = await axios.post("api/cadastros", form);
@@ -49,10 +50,7 @@ export class CadastroService {
         const response = await axios.delete(`api/cadastros/${id}`);
 
         if (response.status === 200) {
-            this.pagedUsers.data = this.pagedUsers.data.filter(
-                (user) => user.id !== id
-            );
-            this.pagedUsersSubject.next(this.pagedUsers);
+            this.listCadastros();
         }
 
         return response.data;
@@ -64,23 +62,26 @@ export class CadastroService {
         console.log(response.status);
 
         if (response.status === 200) {
-            this.pagedUsers.data = this.pagedUsers.data.map((user) =>
-                user.id === id ? response.data : user
-            );
-            this.pagedUsersSubject.next(this.pagedUsers);
+            this.listCadastros();
         }
 
         return response.data;
     }
 
     listCadastros(): Observable<PagedData<CadastroForm>> {
-        axios.get("api/cadastros?page=" + this.currentPage).then((response) => {
-            console.log(response);
-            if (!response.data) return;
+        axios
+            .get(
+                "api/cadastros?page=" +
+                    this.currentPage +
+                    "&search=" +
+                    this.searchTerm
+            )
+            .then((response) => {
+                if (!response.data) return;
 
-            this.pagedUsers = response.data;
-            this.pagedUsersSubject.next(response.data);
-        });
+                this.pagedUsers = response.data;
+                this.pagedUsersSubject.next(response.data);
+            });
 
         return this.pagedUsersSubject.asObservable();
     }
@@ -96,6 +97,11 @@ export class CadastroService {
             this.currentPageSubject.next(page);
             this.listCadastros();
         }
+    }
+
+    setSearchTerm(searchTerm: string) {
+        this.searchTerm = searchTerm;
+        this.listCadastros();
     }
 }
 

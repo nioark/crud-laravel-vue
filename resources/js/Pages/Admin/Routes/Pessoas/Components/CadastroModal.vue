@@ -116,7 +116,7 @@
                     </form>
 
                     <button type="submit" class="btn btn-accent">
-                        Adicionar
+                        {{ !isEdit ? "Adicionar" : "Editar" }}
                     </button>
                 </div>
             </form>
@@ -128,7 +128,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
+import { computed, reactive, ref } from "vue";
 
 import IdIcon from "virtual:icons/hugeicons/grid";
 import EmailIcon from "virtual:icons/hugeicons/mail-01";
@@ -137,7 +137,12 @@ import { toast } from "vue-sonner";
 import CadastroService, { CadastroForm } from "../CadastroService";
 
 const dialogRef = ref<HTMLDialogElement | null>(null);
-const showDialog = () => dialogRef.value?.showModal();
+const showDialog = (cadastro?: CadastroForm) => {
+    if (cadastro) {
+        Object.assign(form, cadastro);
+    }
+    dialogRef.value?.showModal();
+};
 const closeDialog = () => dialogRef.value?.close();
 
 const form = reactive<CadastroForm>({
@@ -148,15 +153,23 @@ const form = reactive<CadastroForm>({
     cpf_cnpj: "",
 });
 
+const isEdit = computed(() => !!form.id);
+
 defineExpose({ show: showDialog, close: closeDialog });
 
 async function submitForm() {
     await toast.promise(
         async () => {
             try {
-                const response = CadastroService.createCadastro(form);
+                if (isEdit.value) {
+                    await CadastroService.updateCadastro(
+                        form.id as number,
+                        form
+                    );
+                } else {
+                    await CadastroService.createCadastro(form);
+                }
 
-                console.log(response);
                 closeDialog();
             } catch (error) {
                 if (error.status == 500)
@@ -167,7 +180,9 @@ async function submitForm() {
         },
         {
             loading: "Criando...",
-            success: "Cadastro adicionado com sucesso!",
+            success: isEdit.value
+                ? "Cadastro editado com sucesso!"
+                : "Cadastro adicionado com sucesso!",
             error: (err) => err.message || "Ocorreu um erro inesperado.",
         }
     );

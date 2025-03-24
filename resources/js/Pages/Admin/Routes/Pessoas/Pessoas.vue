@@ -1,11 +1,11 @@
 <template>
-    <AddCadastroModal ref="addCadastroRef" />
+    <CadastroModal ref="CadastroModalRef" />
 
     <div class="flex justify-between w-full mt-2">
         <h2 class="text-3xl font-bold ml-2">Cadastros</h2>
         <div class="flex gap-2">
             <button
-                @click="addCadastroRef?.show()"
+                @click="CadastroModalRef?.show()"
                 class="btn btn-primary h-8 rounded-lg"
             >
                 <PlusIcon />
@@ -31,7 +31,12 @@
                     <path d="m21 21-4.3-4.3"></path>
                 </g>
             </svg>
-            <input type="search" class="grow" placeholder="Search" />
+            <input
+                v-model="searchTerm"
+                type="search"
+                class="grow"
+                placeholder="Search"
+            />
             <kbd class="kbd kbd-sm">⌘</kbd>
             <kbd class="kbd kbd-sm">K</kbd>
         </label>
@@ -122,7 +127,10 @@
                 </td>
                 <td>{{ cadastro.email || "Não informado" }}</td>
                 <th class="flex justify-end">
-                    <button class="btn btn-neutral hover:btn-warning square">
+                    <button
+                        @click="CadastroModalRef?.show(cadastro)"
+                        class="btn btn-neutral hover:btn-warning square"
+                    >
                         <EditIcon />
                     </button>
                     <button
@@ -224,11 +232,11 @@
 </template>
 
 <script setup lang="ts">
-import AddCadastroModal from "./Components/AddCadastroModal.vue";
-import { ref } from "vue";
+import CadastroModal from "./Components/CadastroModal.vue";
+import { ref, watch } from "vue";
 import CadastroService, { CadastroForm } from "./CadastroService";
 
-const addCadastroRef = ref<InstanceType<typeof AddCadastroModal> | null>(null);
+const CadastroModalRef = ref<InstanceType<typeof CadastroModal> | null>(null);
 
 import PlusIcon from "virtual:icons/hugeicons/user-add-01";
 import DeleteIcon from "virtual:icons/hugeicons/delete-04";
@@ -244,10 +252,15 @@ const from = ref(1);
 const to = ref(10);
 const total = ref(0);
 
+const searchTerm = ref("");
+
+watch(searchTerm, () => {
+    CadastroService.setSearchTerm(searchTerm.value);
+});
+
 function gotoPage(page: number) {
     CadastroService.setPage(page);
 }
-
 CadastroService.listCadastros().subscribe(async (data) => {
     cadastros.value = data.data;
     lastPage.value = data.last_page;

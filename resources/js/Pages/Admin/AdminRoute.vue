@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col w-full items-center mx-auto">
         <div class="flex h-full w-full max-w-[100rem] p-2 gap-2">
-            <div class="w-64 h-full bg-primary rounded-lg">
+            <div class="w-64 h-full flex flex-col bg-primary rounded-lg">
                 <a class="btn btn-ghost text-xl mb-20">daisyUI</a>
 
                 <ul class="menu w-56">
@@ -23,6 +23,13 @@
                         </router-link>
                     </li>
                 </ul>
+                <div class="mt-auto select-none">
+                    <div class="flex items-center gap-2 p-4 text-sm">
+                        <CogIcon />
+
+                        Configurações
+                    </div>
+                </div>
             </div>
 
             <div class="flex flex-col w-full">
@@ -38,4 +45,5 @@
 import Navbar from "./Components/Navbar.vue";
 import PersonIcon from "virtual:icons/hugeicons/user-multiple-02";
 import RegistroIcon from "virtual:icons/hugeicons/align-box-top-right";
+import CogIcon from "virtual:icons/hugeicons/settings-01";
 </script>

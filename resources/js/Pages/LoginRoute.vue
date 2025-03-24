@@ -127,6 +127,10 @@ async function login(email, password) {
                 });
 
                 console.log("Login successful:", loginResponse.data); // Handle the successful login
+
+                if (loginResponse.status == 401) {
+                    throw new Error("Email ou senha incorretos.");
+                }
                 router.push("/admin");
             },
             {

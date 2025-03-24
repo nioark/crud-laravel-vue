@@ -11,9 +11,23 @@ class CadastroController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json(Cadastro::paginate(10));
+        $query = Cadastro::query();
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            \Log::info("Search Term321: " . $searchTerm); 
+            $query->where('nome', 'ILIKE', "%{$searchTerm}%") 
+                  ->orWhere('email', 'ILIKE', "%{$searchTerm}%")
+                  ->orWhere('cpf_cnpj', 'ILIKE', "%{$searchTerm}%")
+                  ->orWhere('telefone', 'ILIKE', "%{$searchTerm}%");
+        }
+
+
+        $cadastros = $query->paginate(10);
+
+        return response()->json($cadastros);
     }
 
     /**
