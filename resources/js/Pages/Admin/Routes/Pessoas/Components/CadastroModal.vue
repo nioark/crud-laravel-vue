@@ -175,7 +175,7 @@ async function submitForm() {
                 if (error.status == 500)
                     throw new Error("Erro de conexão. Verifique sua internet.");
 
-                throw error;
+                throw new Error(error.response.data.message);
             }
         },
         {

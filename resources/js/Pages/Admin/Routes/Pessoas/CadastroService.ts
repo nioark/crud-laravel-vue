@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Subject, Observable, from } from "rxjs";
+import { toast } from "vue-sonner";
 
 export interface CadastroForm {
     id?: number;
@@ -51,6 +52,9 @@ export class CadastroService {
 
         if (response.status === 200) {
             this.listCadastros();
+            toast.success("Cadastro excluido com sucesso!");
+        } else {
+            toast.error(response.data.message || "Erro ao excluir cadastro");
         }
 
         return response.data;

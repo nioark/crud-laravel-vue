@@ -27,6 +27,7 @@ class Cadastro extends Model
                 'required',
                 'string',
                 'regex:/^\d{3}\.\d{3}\.\d{3}-\d{2}$|^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/',
+                Rule::unique('cadastros')->ignore($id, 'id')
             ],
             'tipo' => 'required|in:cpf,cnpj',
             'telefone' => 'nullable|string|max:20',

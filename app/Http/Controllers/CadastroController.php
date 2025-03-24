@@ -42,6 +42,14 @@ class CadastroController extends Controller
 
             return response()->json(['message' => 'Cadastro criado com sucesso!', 'cadastro' => $cadastro], 201);
         } catch (ValidationException $e) {
+
+            $errors = $e->errors();
+            
+            if (isset($errors['cpf_cnpj']) && in_array('The cpf cnpj has already been taken.', $errors['cpf_cnpj'])) {
+                \Log::info("Returning custom json");
+                return response()->json(['message' => 'Este CPF/CNPJ já está cadastrado.'], 422);
+            }
+
             return response()->json(['errors' => $e->errors()], 422);
         }
     }
@@ -66,8 +74,6 @@ class CadastroController extends Controller
     public function update(Request $request, $id)
     {
         $data = $request->all();
-\Log::info("Update Request Data: ", $data);
-\Log::info("Updating cadastro ID: " . $id);
 
 
         $cadastro = Cadastro::find($id);
@@ -84,7 +90,16 @@ class CadastroController extends Controller
             
             return response()->json(['message' => 'Cadastro atualizado com sucesso!', 'cadastro' => $cadastro]);
         } catch (ValidationException $e) {
-            return response()->json(['errors' => $e->errors()], 422);
+
+            $errors = $e->errors();
+
+            if (isset($errors['cpf_cnpj']) && in_array('The cpf cnpj has already been taken.', $errors['cpf_cnpj'])) {
+                \Log::info("Returning custom json");
+                return response()->json(['message' => 'Este CPF/CNPJ já está cadastrado.'], 422);
+            }
+    
+            // Retorna os erros de validação genéricos
+            return response()->json(['errors' => $errors], 422);
         }
     }
 
