@@ -67,6 +67,7 @@ class CadastroController extends Controller
     {
         $data = $request->all();
 \Log::info("Update Request Data: ", $data);
+\Log::info("Updating cadastro ID: " . $id);
 
 
         $cadastro = Cadastro::find($id);
@@ -76,10 +77,11 @@ class CadastroController extends Controller
         }
 
         try {
+
             $validatedData = $request->validate(Cadastro::rules($id));
 
             $cadastro->update($validatedData);
-
+            
             return response()->json(['message' => 'Cadastro atualizado com sucesso!', 'cadastro' => $cadastro]);
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->errors()], 422);
