@@ -65,6 +65,10 @@ class CadastroController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $data = $request->all();
+\Log::info("Update Request Data: ", $data);
+
+
         $cadastro = Cadastro::find($id);
 
         if (!$cadastro) {
@@ -72,7 +76,7 @@ class CadastroController extends Controller
         }
 
         try {
-            $validatedData = $request->validate(Cadastro::rules());
+            $validatedData = $request->validate(Cadastro::rules($id));
 
             $cadastro->update($validatedData);
 
