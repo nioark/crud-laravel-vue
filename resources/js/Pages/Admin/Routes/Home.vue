@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col ml-4">
         <div class="max-w-xl">
-            <h2 class="text-3xl text-primary font-bold sm:text-4xl">
+            <h2 class="text-3xl text-accent font-bold sm:text-4xl">
                 Acessos rápidos
             </h2>
 
@@ -15,10 +15,10 @@
         >
             <router-link
                 to="/admin/pessoas"
-                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-accent border-transparent hover:drop-shadow-lg"
+                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg"
             >
                 <span class="rounded-lg bg-secondary p-3">
-                    <UserAddIcon class="text-content" />
+                    <UserAddIcon class="text-secondary-content" />
                 </span>
 
                 <div>
@@ -32,10 +32,10 @@
 
             <router-link
                 to="/admin/pessoas"
-                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-accent border-transparent hover:drop-shadow-lg h-32"
+                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg h-32"
             >
                 <span class="rounded-lg bg-secondary p-3">
-                    <CadastrosIcon class="text-content" />
+                    <CadastrosIcon class="text-secondary-content" />
                 </span>
 
                 <div>
@@ -49,10 +49,10 @@
             </router-link>
 
             <div
-                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-accent border-transparent hover:drop-shadow-lg h-32"
+                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg h-32"
             >
                 <span class="rounded-lg bg-secondary p-3">
-                    <RegistrosIcon class="text-content" />
+                    <RegistrosIcon class="text-secondary-content" />
                 </span>
 
                 <div>
@@ -66,10 +66,10 @@
             </div>
 
             <div
-                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-accent border-transparent hover:drop-shadow-lg h-32"
+                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg h-32"
             >
                 <span class="rounded-lg bg-secondary p-3">
-                    <ColaboradoresIcon class="text-content" />
+                    <ColaboradoresIcon class="text-secondary-content" />
                 </span>
 
                 <div>
@@ -82,10 +82,10 @@
             </div>
 
             <div
-                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-accent border-transparent hover:drop-shadow-lg h-32"
+                class="flex cursor-pointer items-start gap-4 rounded-lg p-2 transition-all hover:bg-neutral-700 border-2 hover:border-secondary border-transparent hover:drop-shadow-lg h-32"
             >
                 <span class="rounded-lg bg-secondary p-3">
-                    <ConfiguracoesIcon class="text-content" />
+                    <ConfiguracoesIcon class="text-secondary-content" />
                 </span>
 
                 <div>

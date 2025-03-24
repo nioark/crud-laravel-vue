@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar bg-base-100">
+    <div class="navbar bg-base-200">
         <div class="flex-1">
             <div class="breadcrumbs text-sm">
                 <ul>

@@ -1,8 +1,12 @@
 <template>
     <div class="flex flex-col w-full items-center mx-auto">
         <div class="flex h-full w-full max-w-[100rem] p-2 gap-2">
-            <div class="w-64 h-full flex flex-col bg-primary rounded-lg">
-                <a class="btn btn-ghost text-xl mb-20">daisyUI</a>
+            <div class="w-64 h-full flex flex-col bg-base-100 rounded-lg">
+                <div
+                    class="btn btn-ghost text-xl mb-20 flex w-full items-center justify-start"
+                >
+                    <LogoIcon class="text-accent text-2xl mt-1" />AdminUI
+                </div>
 
                 <ul class="menu w-56">
                     <li class="menu-title">Cadastros</li>
@@ -32,10 +36,11 @@
                 </div>
             </div>
 
-            <div class="flex flex-col w-full">
+            <div class="flex flex-col w-full max-h-full overflow-auto">
                 <Navbar class="" />
-
-                <router-view></router-view>
+                <div class="flex flex-col w-full max-h-full overflow-auto">
+                    <router-view></router-view>
+                </div>
             </div>
         </div>
     </div>
@@ -46,4 +51,5 @@ import Navbar from "./Components/Navbar.vue";
 import PersonIcon from "virtual:icons/hugeicons/user-multiple-02";
 import RegistroIcon from "virtual:icons/hugeicons/align-box-top-right";
 import CogIcon from "virtual:icons/hugeicons/settings-01";
+import LogoIcon from "virtual:icons/hugeicons/alpha-square";
 </script>

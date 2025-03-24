@@ -37,49 +37,49 @@
                 class="grow"
                 placeholder="Search"
             />
-            <kbd class="kbd kbd-sm">⌘</kbd>
+            <kbd class="kbd kbd-sm">ctrl</kbd>
             <kbd class="kbd kbd-sm">K</kbd>
         </label>
     </div>
-    <!-- <span v-if="isPending">Loading...</span> -->
-    <table v-if="cadastros.length > 0" class="table">
-        <!-- head -->
-        <thead>
-            <tr>
-                <th>
-                    <label>
-                        <input type="checkbox" class="checkbox" />
-                    </label>
-                </th>
-                <th>
-                    <span class="flex items-center gap-2">
-                        <IdIcon />Nome
-                    </span>
-                </th>
-                <!-- <th>Documento</th> -->
-                <th>
-                    <span class="flex items-center gap-2">
-                        <PhoneIcon /> Telefone
-                    </span>
-                </th>
-                <th>
-                    <span class="flex items-center gap-2">
-                        <EmailIcon /> Email
-                    </span>
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- row 1 -->
-            <tr v-for="cadastro in cadastros" :key="cadastro.id">
-                <th>
-                    <label>
-                        <input type="checkbox" class="checkbox" />
-                    </label>
-                </th>
-                <td>
-                    <div class="flex items-center gap-3">
-                        <!--                         <div class="avatar">
+    <div class="flex-1 overflow-auto min-h-0">
+        <table v-if="cadastros.length > 0" class="table">
+            <!-- head -->
+            <thead>
+                <tr>
+                    <th>
+                        <label>
+                            <input type="checkbox" class="checkbox" />
+                        </label>
+                    </th>
+                    <th>
+                        <span class="flex items-center gap-2">
+                            <IdIcon />Nome
+                        </span>
+                    </th>
+                    <!-- <th>Documento</th> -->
+                    <th>
+                        <span class="flex items-center gap-2">
+                            <PhoneIcon /> Telefone
+                        </span>
+                    </th>
+                    <th>
+                        <span class="flex items-center gap-2">
+                            <EmailIcon /> Email
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- row 1 -->
+                <tr v-for="cadastro in cadastros" :key="cadastro.id">
+                    <th>
+                        <label>
+                            <input type="checkbox" class="checkbox" />
+                        </label>
+                    </th>
+                    <td>
+                        <div class="flex items-center gap-3">
+                            <!--                         <div class="avatar">
                             <div class="mask mask-squircle h-12 w-12">
                                 <img
                                     src="https://img.daisyui.com/images/profile/demo/2@94.webp"
@@ -88,84 +88,85 @@
                             </div>
                         </div> -->
 
-                        <div
-                            class="mask mask-squircle h-12 w-12 bg-neutral flex justify-center items-center"
-                        >
-                            {{
-                                (() => {
-                                    const names = cadastro.nome.split(" ");
-                                    const firstInitial =
-                                        names[0]?.[0]?.toUpperCase() || "";
-                                    const secondInitial =
-                                        (names.length > 1 &&
-                                            names[1]?.[0]?.toUpperCase()) ||
-                                        "";
-                                    return firstInitial + secondInitial;
-                                })()
-                            }}
-                        </div>
-                        <div>
-                            <div class="font-bold">{{ cadastro.nome }}</div>
                             <div
-                                :class="
-                                    cadastro.tipo === 'cpf'
-                                        ? 'bg-blue-500'
-                                        : 'bg-amber-400 text-black'
-                                "
-                                class="text-sm badge badge-ghost badge-sm"
+                                class="mask mask-squircle h-12 w-12 bg-neutral flex justify-center items-center"
                             >
-                                {{ cadastro.tipo.toUpperCase() }}
-                                {{ cadastro.cpf_cnpj }}
+                                {{
+                                    (() => {
+                                        const names = cadastro.nome.split(" ");
+                                        const firstInitial =
+                                            names[0]?.[0]?.toUpperCase() || "";
+                                        const secondInitial =
+                                            (names.length > 1 &&
+                                                names[1]?.[0]?.toUpperCase()) ||
+                                            "";
+                                        return firstInitial + secondInitial;
+                                    })()
+                                }}
+                            </div>
+                            <div>
+                                <div class="font-bold">{{ cadastro.nome }}</div>
+                                <div
+                                    :class="
+                                        cadastro.tipo === 'cpf'
+                                            ? 'bg-blue-500'
+                                            : 'bg-amber-400 text-black'
+                                    "
+                                    class="text-sm badge badge-ghost badge-sm"
+                                >
+                                    {{ cadastro.tipo.toUpperCase() }}
+                                    {{ cadastro.cpf_cnpj }}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </td>
-                <td>
-                    <span class="badge badge-ghost badge-sm">
-                        {{ cadastro.telefone || "Não informado" }}
-                    </span>
-                </td>
-                <td>{{ cadastro.email || "Não informado" }}</td>
-                <th class="flex justify-end">
-                    <button
-                        @click="CadastroModalRef?.show(cadastro)"
-                        class="btn btn-neutral hover:btn-warning square"
-                    >
-                        <EditIcon />
-                    </button>
-                    <button
-                        @click="CadastroService.deleteCadastro(cadastro.id)"
-                        class="btn btn-neutral hover:btn-error square"
-                    >
-                        <DeleteIcon />
-                    </button>
-                </th>
-            </tr>
-        </tbody>
-        <!-- foot -->
-        <tfoot class="hidden">
-            <tr>
-                <th></th>
-                <th>
-                    <span class="flex items-center gap-2">
-                        <IdIcon />Nome
-                    </span>
-                </th>
-                <!-- <th>Documento</th> -->
-                <th>
-                    <span class="flex items-center gap-2">
-                        <PhoneIcon /> Telefone
-                    </span>
-                </th>
-                <th>
-                    <span class="flex items-center gap-2">
-                        <EmailIcon /> Email
-                    </span>
-                </th>
-            </tr>
-        </tfoot>
-    </table>
-    <div class="flex w-full justify-between items-center">
+                    </td>
+                    <td>
+                        <span class="badge badge-ghost badge-sm">
+                            {{ cadastro.telefone || "Não informado" }}
+                        </span>
+                    </td>
+                    <td>{{ cadastro.email || "Não informado" }}</td>
+                    <th class="flex justify-end">
+                        <button
+                            @click="CadastroModalRef?.show(cadastro)"
+                            class="btn btn-neutral hover:btn-warning square"
+                        >
+                            <EditIcon />
+                        </button>
+                        <button
+                            @click="CadastroService.deleteCadastro(cadastro.id)"
+                            class="btn btn-neutral hover:btn-error square"
+                        >
+                            <DeleteIcon />
+                        </button>
+                    </th>
+                </tr>
+            </tbody>
+            <!-- foot -->
+            <tfoot class="hidden">
+                <tr>
+                    <th></th>
+                    <th>
+                        <span class="flex items-center gap-2">
+                            <IdIcon />Nome
+                        </span>
+                    </th>
+                    <!-- <th>Documento</th> -->
+                    <th>
+                        <span class="flex items-center gap-2">
+                            <PhoneIcon /> Telefone
+                        </span>
+                    </th>
+                    <th>
+                        <span class="flex items-center gap-2">
+                            <EmailIcon /> Email
+                        </span>
+                    </th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div class="flex w-full justify-between items-center bg-base-200 h-12">
         <div>
             <p class="text-sm text-base-content pl-2">
                 Mostrando
