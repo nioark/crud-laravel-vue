@@ -13,7 +13,7 @@ class CadastroController extends Controller
      */
     public function index()
     {
-        return response()->json(Cadastro::all());
+        return response()->json(Cadastro::paginate(10));
     }
 
     /**

@@ -47,6 +47,7 @@
                         <PhoneIcon />
                         <input
                             type="text"
+                            v-model="form.telefone"
                             v-mask:="'(##) #####-####'"
                             placeholder="(00) 00000-0000"
                             patern="^\(\d{2}\) \d{5}-\d{4}$"
@@ -132,22 +133,19 @@ import { reactive, ref } from "vue";
 import IdIcon from "virtual:icons/hugeicons/grid";
 import EmailIcon from "virtual:icons/hugeicons/mail-01";
 import PhoneIcon from "virtual:icons/hugeicons/call";
-import { useQuery } from "@tanstack/vue-query";
-import axios from "axios";
 import { toast } from "vue-sonner";
-
-const tipo = ref("");
+import CadastroService, { CadastroForm } from "../CadastroService";
 
 const dialogRef = ref<HTMLDialogElement | null>(null);
 const showDialog = () => dialogRef.value?.showModal();
 const closeDialog = () => dialogRef.value?.close();
 
-const form = reactive({
+const form = reactive<CadastroForm>({
     nome: "",
     email: "",
-    cpf_cnpj: "",
     telefone: "",
-    tipo: "",
+    tipo: "cpf",
+    cpf_cnpj: "",
 });
 
 defineExpose({ show: showDialog, close: closeDialog });
@@ -156,7 +154,7 @@ async function submitForm() {
     await toast.promise(
         async () => {
             try {
-                const response = await axios.post("api/cadastros", form);
+                const response = CadastroService.createCadastro(form);
 
                 console.log(response);
                 closeDialog();
@@ -170,7 +168,7 @@ async function submitForm() {
         {
             loading: "Criando...",
             success: "Cadastro adicionado com sucesso!",
-            error: (err: any) => err.message || "Ocorreu um erro inesperado.",
+            error: (err) => err.message || "Ocorreu um erro inesperado.",
         }
     );
 }

@@ -37,7 +37,7 @@
         </label>
     </div>
     <!-- <span v-if="isPending">Loading...</span> -->
-    <table class="table">
+    <table v-if="cadastros.length > 0" class="table">
         <!-- head -->
         <thead>
             <tr>
@@ -64,9 +64,9 @@
                 </th>
             </tr>
         </thead>
-        <tbody v-if="!isPending">
+        <tbody>
             <!-- row 1 -->
-            <tr v-for="cadastro in data">
+            <tr v-for="cadastro in cadastros" :key="cadastro.id">
                 <th>
                     <label>
                         <input type="checkbox" class="checkbox" />
@@ -87,8 +87,16 @@
                             class="mask mask-squircle h-12 w-12 bg-neutral flex justify-center items-center"
                         >
                             {{
-                                cadastro.nome.split("")[0].toUpperCase() +
-                                cadastro.nome.split("")[1].toUpperCase()
+                                (() => {
+                                    const names = cadastro.nome.split(" ");
+                                    const firstInitial =
+                                        names[0]?.[0]?.toUpperCase() || "";
+                                    const secondInitial =
+                                        (names.length > 1 &&
+                                            names[1]?.[0]?.toUpperCase()) ||
+                                        "";
+                                    return firstInitial + secondInitial;
+                                })()
                             }}
                         </div>
                         <div>
@@ -109,15 +117,18 @@
                 </td>
                 <td>
                     <span class="badge badge-ghost badge-sm">
-                        {{ cadastro.telefone }}</span
-                    >
+                        {{ cadastro.telefone || "Não informado" }}
+                    </span>
                 </td>
-                <td>{{ cadastro.email }}</td>
+                <td>{{ cadastro.email || "Não informado" }}</td>
                 <th class="flex justify-end">
                     <button class="btn btn-neutral hover:btn-warning square">
                         <EditIcon />
                     </button>
-                    <button class="btn btn-neutral hover:btn-error square">
+                    <button
+                        @click="CadastroService.deleteCadastro(cadastro.id)"
+                        class="btn btn-neutral hover:btn-error square"
+                    >
                         <DeleteIcon />
                     </button>
                 </th>
@@ -146,13 +157,76 @@
             </tr>
         </tfoot>
     </table>
+    <div class="flex w-full justify-between items-center">
+        <div>
+            <p class="text-sm text-base-content pl-2">
+                Mostrando
+                <span class="font-medium">{{ from }}</span>
+                a
+                <span class="font-medium">{{ to }}</span>
+                de
+                <span class="font-medium">{{ total }}</span>
+                resultados
+            </p>
+        </div>
+        <div class="join">
+            <button
+                class="join-item btn"
+                :disabled="currentPage === 1"
+                @click="gotoPage(currentPage - 1)"
+            >
+                «
+            </button>
+            <button
+                v-if="currentPage > 1"
+                class="join-item btn"
+                @click="gotoPage(currentPage - 1)"
+            >
+                {{ currentPage - 1 }}
+            </button>
+            <button class="join-item btn bg-primary!" disabled>
+                {{ currentPage }}
+            </button>
+            <button
+                v-if="currentPage < lastPage && currentPage + 1 != lastPage"
+                class="join-item btn"
+                @click="gotoPage(currentPage + 1)"
+            >
+                {{ currentPage + 1 }}
+            </button>
+            <button
+                v-if="lastPage > 2 && currentPage + 2 < lastPage"
+                class="join-item btn"
+                disabled
+            >
+                ...
+            </button>
+            <button
+                v-if="
+                    currentPage < lastPage &&
+                    lastPage > 2 &&
+                    currentPage != lastPage
+                "
+                class="join-item btn"
+                @click="gotoPage(lastPage)"
+            >
+                {{ lastPage }}
+            </button>
+            <button
+                class="join-item btn"
+                :disabled="currentPage === lastPage"
+                @click="gotoPage(currentPage + 1)"
+            >
+                »
+            </button>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { useQuery } from "@tanstack/vue-query";
 import AddCadastroModal from "./Components/AddCadastroModal.vue";
-import axios from "axios";
 import { ref } from "vue";
+import CadastroService, { CadastroForm } from "./CadastroService";
 
 const addCadastroRef = ref<InstanceType<typeof AddCadastroModal> | null>(null);
 
@@ -163,17 +237,27 @@ import IdIcon from "virtual:icons/hugeicons/identification";
 import EmailIcon from "virtual:icons/hugeicons/mail-at-sign-01";
 import PhoneIcon from "virtual:icons/hugeicons/call";
 
-const { isPending, isError, data, error } = useQuery({
-    queryKey: ["pessoas"],
-    queryFn: async () => {
-        const response = await axios.get("/api/cadastros");
-        return response.data;
-    },
-});
-/* if (isPending) {
-    console.log("carregando...");
+const cadastros = ref<CadastroForm[]>([]);
+const currentPage = ref(1);
+const lastPage = ref(1);
+const from = ref(1);
+const to = ref(10);
+const total = ref(0);
+
+function gotoPage(page: number) {
+    CadastroService.setPage(page);
 }
-if (isError) {
-    console.log("Erro ao carregar:", error, isError);
-} */
+
+CadastroService.listCadastros().subscribe(async (data) => {
+    cadastros.value = data.data;
+    lastPage.value = data.last_page;
+    from.value = data.from;
+    to.value = data.to;
+    total.value = data.total;
+});
+
+CadastroService.listenPageChange().subscribe((page) => {
+    console.log(page);
+    currentPage.value = page;
+});
 </script>
