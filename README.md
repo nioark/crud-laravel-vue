@@ -7,17 +7,15 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
-
 # Projeto Crud vue.js + laravel
 
 Esse projeto foi desenvolvido com a finalidade de aprendizagem e demonstrar um aplicativo SPA com laravel monolítico.
 
-![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resoureces/media/Captura-de-tela-login.png?raw=true)
+![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resources/media/Captura-de-tela-login.png?raw=true)
 
-![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resoureces/media/Captura-de-tela-crud.png?raw=true)
+![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resources/media/Captura-de-tela-crud.png?raw=true)
 
-![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resoureces/media/Captura-de-tela-info.png?raw=true)
+![Preview Site](https://github.com/nioark/crud-laravel-vue/blob/main/resources/media/Captura-de-tela-info.png?raw=true)
 
 ## Funcionalidades
 
