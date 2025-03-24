@@ -110,22 +110,32 @@
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import axios from "axios";
+import router from "../router";
+import { toast } from "vue-sonner";
 
 async function login(email, password) {
     try {
-        const csrfResponse = await axios.get("/sanctum/csrf-cookie");
-        console.log(csrfResponse); // You can check the response for debugging
+        await toast.promise(
+            async () => {
+                await axios.get("/sanctum/csrf-cookie");
 
-        // Now make the login request
-        const loginResponse = await axios.post("/api/login", {
-            email,
-            password,
-        });
-        console.log("Login successful:", loginResponse.data); // Handle the successful login
+                const loginResponse = await axios.post("/api/login", {
+                    email,
+                    password,
+                });
+
+                console.log("Login successful:", loginResponse.data); // Handle the successful login
+                router.push("/admin");
+            },
+            {
+                loading: "Logando...",
+                success: "Login realizado com sucesso!",
+                error: (err) => err.message || "Ocorreu um erro inesperado.",
+            }
+        );
         // Navigate to admin route on successful login
-        router.push("/admin");
     } catch (error) {
         console.error("Login failed:", error);
     }
