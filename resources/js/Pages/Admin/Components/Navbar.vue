@@ -5,19 +5,7 @@
                 <ul>
                     <li>
                         <a>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                class="h-4 w-4 stroke-current"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                                ></path>
-                            </svg>
+                            <component :is="crumbs[0].icon" />
                             <router-link :to="crumbs[0].to">
                                 {{ crumbs[0].text }}
                             </router-link>
@@ -26,19 +14,7 @@
 
                     <li v-if="crumbs.length > 1">
                         <a>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                class="h-4 w-4 stroke-current"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
-                                ></path>
-                            </svg>
+                            <component :is="crumbs[1].icon" />
                             {{ crumbs[1].text }}
                         </a>
                     </li>
@@ -88,7 +64,6 @@
 <script setup>
 import { computed } from "vue";
 import { useRoute } from "vue-router";
-import LogoutIcon from "virtual:icons/hugeicons/logout-01";
 import axios from "axios";
 import router from "../../../router";
 
@@ -112,6 +87,7 @@ const crumbs = computed(() => {
                 ? "/" + breadcrumbArray[idx - 1].path + "/" + path
                 : "/" + path,
             text: route.matched[idx]?.meta?.breadCrumb?.text || path,
+            icon: route.matched[idx]?.meta?.breadCrumb?.icon,
         });
         return breadcrumbArray;
     }, []);

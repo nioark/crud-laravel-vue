@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import axios from "axios";
+import HomeIcon from "virtual:icons/hugeicons/home-11";
+import PersonIcon from "virtual:icons/hugeicons/user-multiple-02";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000";
 axios.defaults.withCredentials = true;
@@ -38,6 +40,7 @@ const routes = [
                     import("./Pages/Admin/Routes/Pessoas/Pessoas.vue"),
                 meta: {
                     breadCrumb: {
+                        icon: PersonIcon,
                         to: "/admin/pessoas",
                         text: "Cadastros",
                     },
@@ -58,6 +61,7 @@ const routes = [
         meta: {
             requiresAuth: true,
             breadCrumb: {
+                icon: HomeIcon,
                 to: "/admin",
                 text: "Home",
             },
@@ -84,8 +88,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
     const user = await isAuthenticated();
-
-    console.log("User:", user);
 
     if (to.meta.requiresAuth && !user) {
         next("/login"); // Redirect to login if not authenticated
